@@ -1,6 +1,9 @@
-"""No pytest dependency on purpose — run with `python3 tests/test_count_words.py`
-so this factory demo has zero install step."""
+"""No pytest dependency on purpose — run from the repo root with
+`python3 sample-feature/tests/test_count_words.py` so this factory demo has
+zero install step."""
 
+import atexit
+import shutil
 import sys
 import tempfile
 from pathlib import Path
@@ -11,6 +14,7 @@ from actions.count_words import count_words_action  # noqa: E402
 
 def with_tmp_file(name: str, content: str):
     tmp_dir = tempfile.mkdtemp()
+    atexit.register(shutil.rmtree, tmp_dir, ignore_errors=True)
     path = Path(tmp_dir) / name
     path.write_text(content, encoding="utf-8")
     return str(path)
@@ -18,17 +22,20 @@ def with_tmp_file(name: str, content: str):
 
 def test_counts_simple_sentence():
     f = with_tmp_file("a.txt", "hello world")
-    assert count_words_action(f) == 2, f"expected 2, got {count_words_action(f)}"
+    result = count_words_action(f)
+    assert result == 2, f"expected 2, got {result}"
 
 
 def test_ignores_repeated_spaces():
     f = with_tmp_file("b.txt", "hello   world")
-    assert count_words_action(f) == 2, f"expected 2, got {count_words_action(f)}"
+    result = count_words_action(f)
+    assert result == 2, f"expected 2, got {result}"
 
 
 def test_empty_file_has_zero_words():
     f = with_tmp_file("c.txt", "")
-    assert count_words_action(f) == 0, f"expected 0, got {count_words_action(f)}"
+    result = count_words_action(f)
+    assert result == 0, f"expected 0, got {result}"
 
 
 if __name__ == "__main__":
