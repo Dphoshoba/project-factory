@@ -20,7 +20,7 @@ Ran `sample-feature/tests/test_count_words.py` before and after the change
 
 **Before** (bug reproduced first, per the prove beat):
 
-```
+```text
 PASS  test_counts_simple_sentence
 FAIL  test_ignores_repeated_spaces: expected 2, got 4
 FAIL  test_empty_file_has_zero_words: expected 0, got 1
@@ -30,7 +30,7 @@ FAIL  test_empty_file_has_zero_words: expected 0, got 1
 
 **After**:
 
-```
+```text
 PASS  test_counts_simple_sentence
 PASS  test_ignores_repeated_spaces
 PASS  test_empty_file_has_zero_words
