@@ -7,4 +7,4 @@ def read_text(path: str) -> str:
 
 
 def tokenize(text: str) -> list[str]:
-    return text.strip().split(" ")
+    return text.split()
