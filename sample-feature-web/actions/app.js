@@ -7,7 +7,8 @@ function updateCount() {
   const input = document.getElementById("input");
   const count = document.getElementById("count");
   const words = tokenize(input.value);
-  count.textContent = `${words.length} words`;
+  const label = words.length === 1 ? "word" : "words";
+  count.textContent = `${words.length} ${label}`;
 }
 
 document.getElementById("input").addEventListener("input", updateCount);
