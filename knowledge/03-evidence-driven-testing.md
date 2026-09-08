@@ -46,7 +46,12 @@ read the output of.
 
 - Use a screenshot CLI (for example `@vercel/before-and-after`, or a one-off
   Playwright script run via `npx --yes --package=playwright node
-  record.mjs`) against a running local server.
+  record.mjs`) against a running local server. If the harness only has an
+  interactive scriptable browser (drive + screenshot, no dedicated
+  screenshot CLI, no filesystem write from the page), render the DOM to a
+  canvas in-page (`html2canvas`, loaded from a CDN) and POST the resulting
+  data URL to a small local endpoint that decodes and writes the PNG — this
+  still produces a real captured file without needing a heavier tool.
 - Number captures in test order with the assertion in the filename:
   `01-precondition-signed-in.png`, `02-it-saves-on-blur-passed.png`.
 - Keep an `assertions.md` alongside the images listing each `test_start` /
@@ -55,6 +60,14 @@ read the output of.
   of a burned-in overlay.
 - In containers/VMs where headless Chrome fails with "No usable sandbox",
   pass the no-sandbox flag the tool exposes for that.
+- **Disable caching on any throwaway dev server used for this.** A plain
+  static server (e.g. Python's `http.server`) sends no cache-control
+  headers, so a browser can silently re-serve a stale script after you fix
+  the bug and reload — the "after" capture then shows the old, broken
+  behavior even though the fix is live on disk. Send
+  `Cache-Control: no-store, no-cache, must-revalidate` on every response
+  from the dev server, and verify the fixed behavior with a screenshot
+  *before* trusting a capture as the "after" evidence.
 
 ## Tier 3 — live screen recording (GUI environment + computer-use actuator)
 
