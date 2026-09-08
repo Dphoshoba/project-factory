@@ -1,6 +1,8 @@
 # Add a web-UI sample feature and prove tier-2 evidence for real
 
-Branch: `agent/web-ui-evidence-demo1`, off `54d0d03`.
+Branch: `agent/web-ui-evidence-demo1`, off `54d0d03`. Evidence below was
+captured against `80382f47b894194834702f6b9d8dc46e41244b09` (the commit that
+introduced the feature, before the review-loop fixes in this PR).
 
 ## What changed
 
@@ -36,7 +38,10 @@ fix and once after.
 
 | Case | Before | After |
 |---|---|---|
-| `"hello   world"` (3 spaces) | ![before](https://raw.githubusercontent.com/Dphoshoba/project-factory/agent/web-ui-evidence-demo1/sample-feature-web/evidence/before.png) <br> **4 words** (wrong) | ![after](https://raw.githubusercontent.com/Dphoshoba/project-factory/agent/web-ui-evidence-demo1/sample-feature-web/evidence/after.png) <br> **2 words** |
+| `"hello   world"` (3 spaces) | ![before](https://raw.githubusercontent.com/Dphoshoba/project-factory/80382f47b894194834702f6b9d8dc46e41244b09/sample-feature-web/evidence/before.png) <br> **4 words** (wrong) | ![after](https://raw.githubusercontent.com/Dphoshoba/project-factory/80382f47b894194834702f6b9d8dc46e41244b09/sample-feature-web/evidence/after.png) <br> **2 words** |
+
+Image links are pinned to that commit SHA rather than the branch name, so
+they keep resolving after the branch is deleted post-merge.
 
 Full write-up: `.artifacts/web-ui-evidence-demo1/report.md` (gitignored, not
 part of this PR — evidence gets attached, not committed, per the prove
